@@ -1,0 +1,1 @@
+Hasil lengkap simulasi disimpan di dalam file `result.txt` pada direktori yang sama.
