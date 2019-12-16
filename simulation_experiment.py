@@ -13,6 +13,7 @@ from config_experiment import (
     ONLINE_PRINTER_CAPACITY,
     OFFLINE_PRINTER_CAPACITY,
 )
+from visualize import pie, bar
 from customer import OnlineCustomer, OfflineCustomer
 from resource import MonitoredResource
 
@@ -186,6 +187,34 @@ if __name__ == "__main__":
             average_computer_queue_duration,
             average_printer_queue_duration
         ) = run_hybrid_simulation(SIMULATION_NUMBER)
+
+        pie([
+            "Printer Utilization",
+            "Computer Utilization",
+            "Printer Queue Probability",
+            "Computer Queue Probability",
+            ], 
+            [
+                printer_utilization,
+            computer_utilization,
+            printer_queue_probability,
+                computer_queue_probability,
+            
+            ],
+            [["Idle", "Busy"],["Queue", "No Queue"]],
+            2
+        )
+        bar(
+            "Average Queue Duration (The lower the better)"
+            , 
+            [
+            average_printer_queue_duration,
+            average_computer_queue_duration,
+            ],
+            ["Printer", "Computer"],
+            "Duration (minutes)"
+        )
+
         with open("result.txt", "a") as f:
             f.write("Service Rate: " + str(service_rate) + "\n")
             f.write("Jumlah Customer terlayani : " + str(customer_served) + "\n")
@@ -218,6 +247,36 @@ if __name__ == "__main__":
             average_offline_printer_queue_duration,
         ) = run_cetakin_simulation(SIMULATION_NUMBER)
 
+        pie([
+            "Online Printer Utilization",
+            "Offline Printer Utilization",
+            "Computer Utilization",
+            "Online Printer Queue Probability",
+            "Offline Printer Queue Probability",
+            "Computer Queue Probability",
+            ], 
+            [
+                online_printer_utilization,
+                offline_printer_utilization,
+                computer_utilization,
+                online_printer_queue_probability,
+                offline_printer_queue_probability,
+                computer_queue_probability,
+            ],
+            [["Idle", "Busy"],["Queue", "No Queue"]],
+            3
+        )
+        bar(
+            "Average Queue Duration (The lower the better)"
+            , 
+            [
+            average_online_printer_queue_duration,
+            average_offline_printer_queue_duration,
+            average_computer_queue_duration,
+            ],
+            ["Online Printer", "Offline Printer", "Computer"],
+            "Duration (minutes)"
+        )
         with open("result.txt", "a") as f:
             f.write("Service Rate: " + str(service_rate) + "\n")
             f.write("Jumlah Customer terlayani : " + str(customer_served) + "\n")
